@@ -10,6 +10,7 @@ var numberButton = new Array(11);
 var numberButtonDispaly
 var record = new Array();
 var BUTTONS = 12
+var last
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -30,6 +31,11 @@ function createEquation() {
         answer = a - b;        
     }
     myHeading.textContent = a.toString() + op + b.toString() + " = ";
+    if (last == myHeading.textContent){
+        createEquation();
+        return;
+    }
+    last = myHeading.textContent;
 }
 
 function checkSum(number) {
@@ -43,7 +49,7 @@ function checkSum(number) {
     }
     else {
         myHeading.textContent += number.toString();
-        myHeading.textContent += "X";
+        myHeading.textContent += "   X";
         wrong++;
     }
 
