@@ -2,11 +2,14 @@
 var myHeading = document.querySelector('h1');
 var a, op, b, answer;
 var right = 0;
+var wrong = 0;
+var pass = 0;
 var interval;
 var startButton;
 var numberButton = new Array(11);
 var numberButtonDispaly
 var record = new Array();
+var BUTTONS = 12
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -30,15 +33,18 @@ function createEquation() {
 }
 
 function checkSum(number) {
-    if (answer == number)
-    {
+    if (answer == number) {
         right++;
         myHeading.textContent += number.toString();
     }
-    else
-    {
+    else if (number == BUTTONS -1){
+        myHeading.textContent += "Pass";
+        pass++;
+    }
+    else {
         myHeading.textContent += number.toString();
         myHeading.textContent += "X";
+        wrong++;
     }
 
     record.push(myHeading.textContent);
@@ -60,21 +66,35 @@ function createButton(number) {
     document.body.appendChild(numberButton[number]);                              // Append <p> to <body>
 }
 
+function createPassButton(number) {
+    numberButton[number] = document.createElement("BUTTON");                       // Create a <p> element
+    var t = document.createTextNode("P");       // Create a text node
+    numberButton[number].appendChild(t);                                          // Append the text to <p>
+    numberButton[number].style.width = "100px";
+    numberButton[number].style.height = "100px";
+    numberButton[number].style.backgroundColor = "lightblue";
+    numberButton[number].style.fontSize = "50px";
+    numberButton[number].onclick = function(){checkSum(number)};
+    numberButtonDispaly = numberButton[i].style.display
+    document.body.appendChild(numberButton[number]);                              // Append <p> to <body>
+}
+
 function createNumberButtons(){
-    for (i = 0; i <= 10; i++)
+    for (i = 0; i < BUTTONS - 1; i++)
     {
         createButton(i);
-    }      
+    }
+    createPassButton(BUTTONS - 1);
 }
 
 function hidenNumberButtons() {
-    for (i = 0; i <= 10; i++)
+    for (i = 0; i < BUTTONS; i++)
     {
         numberButton[i].style.display = "none";
     }
 }
 function showNumberButtons() {
-    for (i = 0; i <= 10; i++)
+    for (i = 0; i < BUTTONS; i++)
     {
         numberButton[i].style.display = numberButtonDispaly;
     }
@@ -83,7 +103,9 @@ function showNumberButtons() {
 function displayResult() {
     hidenNumberButtons();
     startButton.style.display = "block";
-    myHeading.textContent = "Right: " + right.toString();
+    myHeading.textContent = "Right: " + right.toString() + "\n";
+    myHeading.textContent += "Wrong: " + wrong.toString() + "\n";
+    myHeading.textContent += "Pass: " + pass.toString() + "\n";    
     var list = document.getElementById('result');
     for (i = 0; i < record.length; i++)
     {
@@ -95,6 +117,8 @@ function displayResult() {
 
 function main(){
     right = 0;
+    wrong = 0;
+    pass = 0;
     removeResult();
     record = [];
     showNumberButtons();
