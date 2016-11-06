@@ -12,6 +12,9 @@ var record = new Array();
 var BUTTONS = 12
 var last
 var equationListButton
+var timer
+var timerDisplay
+var timerId
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -22,13 +25,13 @@ function createEquation() {
 
     if (getRandomInt(0, 1))
     {
-        op = "+";
+        op = " + ";
         b = getRandomInt(0, 10 - a);
         answer = a + b;
     }
     else
     {
-        op = "-";
+        op = " - ";
         b = getRandomInt(0, a);
         answer = a - b;        
     }
@@ -58,6 +61,7 @@ function createEquationList() {
         entry.appendChild(document.createTextNode(record[i]));
         list.appendChild(entry);
     }
+    startTimer()
 }
 
 function checkSum(number) {
@@ -153,6 +157,7 @@ function main(){
     pass = 0;
     removeResult();
     record = [];
+    stopTimer()
     showNumberButtons();
     createEquation();
     startButton.style.display="none"
@@ -191,7 +196,37 @@ function removeResult() {
     }
 }
 
+function createTimer() {
+    timer = document.createElement("INPUT");
+    timer.value = 0
+    timer.style.width = "200px";
+    timer.style.height = "200px";
+    timer.style.fontSize = "75px"
+    timer.style.backgroundColor = "#FF9500";
+    timer.style.textAlign = "center"
+    timer.style.border = "0px"
+    timerDisplay = timer.style.display
+    timer.style.display = "none"
+    document.body.appendChild(timer);
+}
+
+function updateTimer() {
+    timer.value++;
+}
+
+function startTimer() {
+    timer.value = 0
+    timer.style.display = timerDisplay
+    clearInterval(timerId)
+    timerId = setInterval(updateTimer,1000);
+}
+function stopTimer() {
+    timer.style.display = "none"
+    clearInterval(timerId)    
+}
+
 createStart();
 createEquationListButton();
+createTimer();
 createNumberButtons();
 hidenNumberButtons();
