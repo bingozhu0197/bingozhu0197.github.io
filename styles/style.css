@@ -10,9 +10,12 @@ h1 {
 }
 
 p, li {
-  font-size: 16px;  
-  line-height: 2;
+  //line-height: 2;
+  list-style-position:outside;
   letter-spacing: 1px;
+  font-size: 50px;
+  text-align: center;  
+  list-style-type:none;  
 }
 
 
@@ -21,7 +24,7 @@ html {
 }
 
 body {
-  width: 600px;
+  width: 800px;
   margin: 0 auto;
   background-color: #FF9500;
   padding: 0 20px 20px 20px;
@@ -33,6 +36,15 @@ h1 {
   padding: 20px 0;  
   color: #00539F;
   text-shadow: 3px 3px 1px black;
+}
+
+o1 {
+//  font-size: 100px;
+  text-align: center;    
+  margin: 0;
+//  padding: 20px 0;  
+//  color: #00539F; 
+//  text-shadow: 3px 3px 1px black;  
 }
 
 img {

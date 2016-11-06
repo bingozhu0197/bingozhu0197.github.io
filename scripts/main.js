@@ -11,10 +11,12 @@ var numberButtonDispaly
 var record = new Array();
 var BUTTONS = 12
 var last
+var equationListButton
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 function createEquation() {
     a = getRandomInt(0, 10);
 
@@ -36,6 +38,25 @@ function createEquation() {
         return;
     }
     last = myHeading.textContent;
+}
+
+function createEquationList() {
+    //equationListButton.style.display = "none";
+    //startButton.style.display = "none";
+
+    for (i = 0; i < 60; i++)
+    {
+        createEquation();
+        record.push(last);
+    }
+    myHeading.textContent = ""
+    var list = document.getElementById('result');
+    for (i = 0; i < record.length; i++)
+    {
+        var entry = document.createElement('li');
+        entry.appendChild(document.createTextNode(record[i]));
+        list.appendChild(entry);
+    }
 }
 
 function checkSum(number) {
@@ -109,9 +130,9 @@ function showNumberButtons() {
 function displayResult() {
     hidenNumberButtons();
     startButton.style.display = "block";
-    myHeading.textContent = "Right: " + right.toString() + "\n";
-    myHeading.textContent += "Wrong: " + wrong.toString() + "\n";
-    myHeading.textContent += "Pass: " + pass.toString() + "\n";    
+    myHeading.textContent = "Right: " + right.toString() + "  ";
+    myHeading.textContent += "Wrong: " + wrong.toString() + "   ";
+    myHeading.textContent += "Pass: " + pass.toString() + "   ";    
     var list = document.getElementById('result');
     for (i = 0; i < record.length; i++)
     {
@@ -130,6 +151,7 @@ function main(){
     showNumberButtons();
     createEquation();
     startButton.style.display="none"
+    equationListButton.style.display="none"
     setTimeout(function() {displayResult();}, 60000);
 }
 
@@ -137,12 +159,24 @@ function createStart() {
     startButton = document.createElement("BUTTON"); 
     var t = document.createTextNode("Start");
     startButton.appendChild(t);
-    startButton.style.width = "100px";
-    startButton.style.height = "100px";
+    startButton.style.width = "200px";
+    startButton.style.height = "200px";
     startButton.style.backgroundColor = "lightgreen";
-    startButton.style.fontSize = "25px";
+    startButton.style.fontSize = "50px";
     startButton.onclick = function(){main();};
     document.body.appendChild(startButton);
+}
+
+function createEquationListButton() {
+    equationListButton = document.createElement("BUTTON"); 
+    var t = document.createTextNode("Create");
+    equationListButton.appendChild(t);
+    equationListButton.style.width = "200px";
+    equationListButton.style.height = "200px";
+    equationListButton.style.backgroundColor = "lightgreen";
+    equationListButton.style.fontSize = "50px";
+    equationListButton.onclick = function(){createEquationList();};
+    document.body.appendChild(equationListButton);
 }
 
 function removeResult() {
@@ -155,3 +189,4 @@ function removeResult() {
 createStart();
 createNumberButtons();
 hidenNumberButtons();
+createEquationListButton();
