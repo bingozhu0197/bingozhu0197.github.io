@@ -85,10 +85,10 @@ function createButton(number) {
     numberButton[number] = document.createElement("BUTTON");                       // Create a <p> element
     var t = document.createTextNode(number.toString());       // Create a text node
     numberButton[number].appendChild(t);                                          // Append the text to <p>
-    numberButton[number].style.width = "100px";
-    numberButton[number].style.height = "100px";
+    numberButton[number].style.width = "150px";
+    numberButton[number].style.height = "150px";
     numberButton[number].style.backgroundColor = "lightblue";
-    numberButton[number].style.fontSize = "50px";
+    numberButton[number].style.fontSize = "100px";
     numberButton[number].onclick = function(){checkSum(number)};
     numberButtonDispaly = numberButton[i].style.display
     document.body.appendChild(numberButton[number]);                              // Append <p> to <body>
@@ -98,10 +98,10 @@ function createPassButton(number) {
     numberButton[number] = document.createElement("BUTTON");                       // Create a <p> element
     var t = document.createTextNode("P");       // Create a text node
     numberButton[number].appendChild(t);                                          // Append the text to <p>
-    numberButton[number].style.width = "100px";
-    numberButton[number].style.height = "100px";
+    numberButton[number].style.width = "150px";
+    numberButton[number].style.height = "150px";
     numberButton[number].style.backgroundColor = "lightblue";
-    numberButton[number].style.fontSize = "50px";
+    numberButton[number].style.fontSize = "100px";
     numberButton[number].onclick = function(){checkSum(number)};
     numberButtonDispaly = numberButton[i].style.display
     document.body.appendChild(numberButton[number]);                              // Append <p> to <body>
@@ -110,6 +110,10 @@ function createPassButton(number) {
 function createNumberButtons(){
     for (i = 0; i < BUTTONS - 1; i++)
     {
+        if (i == BUTTONS / 2)
+        {
+            document.write("<br/>")        
+        }
         createButton(i);
     }
     createPassButton(BUTTONS - 1);
@@ -188,6 +192,6 @@ function removeResult() {
 }
 
 createStart();
+createEquationListButton();
 createNumberButtons();
 hidenNumberButtons();
-createEquationListButton();
