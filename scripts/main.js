@@ -43,7 +43,7 @@ function createEquation() {
 function createEquationList() {
     //equationListButton.style.display = "none";
     //startButton.style.display = "none";
-
+    record = [];
     for (i = 0; i < 60; i++)
     {
         createEquation();
