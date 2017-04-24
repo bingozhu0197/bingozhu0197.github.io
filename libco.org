@@ -8,6 +8,7 @@
    It is a file seems not related with other files. The basic technology of this file is to create class has members = paramters in co_func, has parent class stCoClosure_t; then these objects can be put into vector and be called one by one.
    If we expand(g++ -E ) the example_closure.cpp, we will find:
 *** co_ref( ref,total,v2,m);
+    #+BEGIN_VERSE
     typedef typeof( total ) typeof_total;
     typedef typeof( v2 ) typeof_v2;
     typedef typeof( m ) typeof_m;
@@ -19,8 +20,10 @@
         type_ref( typeof_total & totalr, typeof_v2 & v2r, typeof_m & mr, ... ): total(totalr), v2(v2r), m(mr), _member_cnt(3)
         {}
     } ref( total,v2,m ) ;;
+    #+END_VERSE
 
 *** co_func( f,ref,i ){...} co_func_end;
+    #+BEGIN_VERSE
     typedef typeof( ref ) typeof_ref;
     typedef typeof( i ) typeof_i;
     class f:public stCoClosure_t
@@ -37,3 +40,4 @@
         ...
         }
     };
+    #+END_VERSE
