@@ -23,7 +23,7 @@
     #+END_VERSE
 
 *** co_func( f,ref,i ){...} co_func_end;
-    #+BEGIN_VERSE
+    #+BEGIN_SRC C
     typedef typeof( ref ) typeof_ref;
     typedef typeof( i ) typeof_i;
     class f:public stCoClosure_t
@@ -40,4 +40,4 @@
         ...
         }
     };
-    #+END_VERSE
+    #+END_SRC
