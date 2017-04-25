@@ -1,9 +1,45 @@
 * Intrduction
-  It provides a way to run multi-routines in one thread. These routines can perform as threads created by pthread. For example conditional wait, socket send/recv. libco manage these routes in userspace with epoll in linux or kqueue in apple.
+  Libco provides a way to run and switch multi-routines in userspace in one thread. With provided api, these routines can work as threads created by pthread. For example conditional wait, socket send/recv..
 
 * libco split
 ** key code
-	coctx_swap(&(curr->ctx),&(pending_co->ctx) ); //switch between current thread and pending route.
+    #+BEGIN_SRC C
+	coctx_swap(&(curr->ctx),&(pending_co->ctx) ); //switch between routes in current thread.
+    #+END_SRC
+** co_routine.h, co_routine.cpp
+   This is the key file in this lib. As header file shows, it provides similar functions as pthread:
+*** co_create
+    Create routine ctx prepare for running.
+*** co_resume
+    Add routine ctx into stack, waiting to be switched.
+*** co_yield
+    Release current runing routine, let next waiting routing to run.
+*** co_yield_ct
+    Release current thread related ctx.
+*** co_release
+    Free finished routine related context.
+*** co_self
+    Current routine.
+*** TODO co_poll
+    Poll fds; add example
+*** co_eventloop
+    Key routine to switch between routines.
+*** co_setspecific
+*** co_getspecific
+*** co_get_epoll_ct
+*** co_enable_hook_sys
+*** co_disable_hook_sys
+*** co_is_enable_sys_hook
+
+*** co_cond_alloc
+    Conditional
+*** co_cond_free
+*** co_cond_signal
+*** co_cond_broadcast
+*** co_cond_timedwait
+*** co_alloc_sharestack
+*** co_set_env_list
+*** co_log_err
 ** co_closure.h
    It is a file seems not related with other files. The basic technology of this file is to create class has members = paramters in co_func, has parent class stCoClosure_t; then these objects can be put into vector and be called one by one.
    If we expand(g++ -E ) the example_closure.cpp, we will find:
