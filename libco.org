@@ -7,7 +7,7 @@
 	coctx_swap(&(curr->ctx),&(pending_co->ctx) ); //switch between routes in current thread.
     #+END_SRC
 ** co_routine.h, co_routine.cpp
-   This is the key file in this lib. As header file shows, it provides similar functions as pthread:
+   This is the key file in this lib. It provides similar functions as pthread.
 *** co_create
     Create routine ctx prepare for running.
 *** co_resume
@@ -27,16 +27,17 @@
 *** co_setspecific
 *** co_getspecific
 *** co_get_epoll_ct
+
 *** co_enable_hook_sys
 *** co_disable_hook_sys
 *** co_is_enable_sys_hook
 
 *** co_cond_alloc
-    Conditional
 *** co_cond_free
 *** co_cond_signal
 *** co_cond_broadcast
 *** co_cond_timedwait
+
 *** co_alloc_sharestack
 *** co_set_env_list
 *** co_log_err
@@ -78,3 +79,9 @@
         }
     };
     #+END_SRC
+** example_cond.cpp
+   Provide example of co_ond_alloc, co_cond_signal, co_cond_timedwait usage.
+** example_copystack.cpp
+   Two routines share same stack.
+** example_echocli.cpp, example_echosvr.cpp
+   Provide good examples of using co_routines for socket application.
