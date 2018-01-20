@@ -1,20 +1,8 @@
 //author: zhubinbin.china@gmail.com
 var myHeading = document.querySelector('h1');
-var a, op, b, answer;
-var right = 0;
-var wrong = 0;
-var pass = 0;
-var interval;
+
 var startButton;
-var numberButton = new Array(11);
-var numberButtonDispaly
-var record = new Array();
-var BUTTONS = 12
-var last
-var equationListButton
-var timer
-var timerDisplay
-var timerId
+var count = 0;
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -26,207 +14,56 @@ function createEquation() {
     if (getRandomInt(0, 1))
     {
         op = " + ";
-        b = getRandomInt(0, 10 - a);
+        b = getRandomInt(0, 20 - a);
         answer = a + b;
     }
     else
     {
         op = " - ";
         b = getRandomInt(0, a);
-        answer = a - b;        
+        answer = a - b;
     }
     myHeading.textContent = a.toString() + op + b.toString() + " = ";
-    if (last == myHeading.textContent){
-        createEquation();
-        return;
-    }
-    last = myHeading.textContent;
+    count++;
 }
 
-function createEquationList() {
-    //equationListButton.style.display = "none";
-    //startButton.style.display = "none";
-    removeResult();
-    record = []
-    for (i = 0; i < 60; i++)
-    {
-        createEquation();
-        record.push(last);
-    }
+
+function createNextButton() {
+    nextButton = document.createElement("BUTTON");                       // Create a <p> element
+    var t2 = document.createTextNode("Next");                                // Create a text node
+    nextButton.appendChild(t2);                                           // Append the text to <p>
+    nextButton.style.width = "600px";
+    nextButton.style.height = "150px";
+    nextButton.style.backgroundColor = "lightblue";
+    nextButton.style.fontSize = "100px";
+    nextButton.onclick = function(){createEquation()};
+    document.body.appendChild(nextButton);                              // Append <p> to <body>
+}
+
+function summarize(){
+    alert(count);
     myHeading.textContent = ""
-    var list = document.getElementById('result');
-    for (i = 0; i < record.length; i++)
-    {
-        var entry = document.createElement('li');
-        entry.appendChild(document.createTextNode(record[i]));
-        list.appendChild(entry);
-    }
-    startTimer()
+    nextButton.style.display = "none"
+    createStartButton();
 }
 
-function checkSum(number) {
-    if (answer == number) {
-        right++;
-        myHeading.textContent += number.toString();
-    }
-    else if (number == BUTTONS -1){
-        myHeading.textContent += "Pass";
-        pass++;
-    }
-    else {
-        myHeading.textContent += number.toString();
-        myHeading.textContent += "   X";
-        wrong++;
-    }
-
-    record.push(myHeading.textContent);
-    myHeading.textContent
+function home(){
+    startButton.style.display = "none"
     createEquation();
-    return ;
+    setTimeout(function() {summarize();}, 60000);
+    createNextButton();
 }
 
-function createButton(number) {
-    numberButton[number] = document.createElement("BUTTON");                       // Create a <p> element
-    var t = document.createTextNode(number.toString());       // Create a text node
-    numberButton[number].appendChild(t);                                          // Append the text to <p>
-    numberButton[number].style.width = "150px";
-    numberButton[number].style.height = "150px";
-    numberButton[number].style.backgroundColor = "lightblue";
-    numberButton[number].style.fontSize = "100px";
-    numberButton[number].onclick = function(){checkSum(number)};
-    numberButtonDispaly = numberButton[i].style.display
-    document.body.appendChild(numberButton[number]);                              // Append <p> to <body>
-}
-
-function createPassButton(number) {
-    numberButton[number] = document.createElement("BUTTON");                       // Create a <p> element
-    var t = document.createTextNode("P");       // Create a text node
-    numberButton[number].appendChild(t);                                          // Append the text to <p>
-    numberButton[number].style.width = "150px";
-    numberButton[number].style.height = "150px";
-    numberButton[number].style.backgroundColor = "lightblue";
-    numberButton[number].style.fontSize = "100px";
-    numberButton[number].onclick = function(){checkSum(number)};
-    numberButtonDispaly = numberButton[i].style.display
-    document.body.appendChild(numberButton[number]);                              // Append <p> to <body>
-}
-
-function createNumberButtons(){
-    for (i = 0; i < BUTTONS - 1; i++)
-    {
-        if (i == BUTTONS / 2)
-        {
-            document.write("<br/>")        
-        }
-        createButton(i);
-    }
-    createPassButton(BUTTONS - 1);
-}
-
-function hidenNumberButtons() {
-    for (i = 0; i < BUTTONS; i++)
-    {
-        numberButton[i].style.display = "none";
-    }
-}
-function showNumberButtons() {
-    for (i = 0; i < BUTTONS; i++)
-    {
-        numberButton[i].style.display = numberButtonDispaly;
-    }
-}
-
-function displayResult() {
-    hidenNumberButtons();
-    startButton.style.display = "block";
-    myHeading.textContent = "Right: " + right.toString() + "  ";
-    myHeading.textContent += "Wrong: " + wrong.toString() + "   ";
-    myHeading.textContent += "Pass: " + pass.toString() + "   ";    
-    var list = document.getElementById('result');
-    for (i = 0; i < record.length; i++)
-    {
-        var entry = document.createElement('li');
-        entry.appendChild(document.createTextNode(record[i]));
-        list.appendChild(entry);
-    }
-}
-
-function main(){
-    right = 0;
-    wrong = 0;
-    pass = 0;
-    removeResult();
-    record = [];
-    stopTimer()
-    showNumberButtons();
-    createEquation();
-    startButton.style.display="none"
-    equationListButton.style.display="none"
-    setTimeout(function() {displayResult();}, 60000);
-}
-
-function createStart() {
-    startButton = document.createElement("BUTTON"); 
+function createStartButton() {
+    startButton = document.createElement("BUTTON");
     var t = document.createTextNode("Start");
     startButton.appendChild(t);
     startButton.style.width = "200px";
     startButton.style.height = "200px";
     startButton.style.backgroundColor = "lightgreen";
     startButton.style.fontSize = "50px";
-    startButton.onclick = function(){main();};
+    startButton.onclick = function(){home();};
     document.body.appendChild(startButton);
 }
 
-function createEquationListButton() {
-    equationListButton = document.createElement("BUTTON"); 
-    var t = document.createTextNode("Create");
-    equationListButton.appendChild(t);
-    equationListButton.style.width = "200px";
-    equationListButton.style.height = "200px";
-    equationListButton.style.backgroundColor = "lightgreen";
-    equationListButton.style.fontSize = "50px";
-    equationListButton.onclick = function(){createEquationList();};
-    document.body.appendChild(equationListButton);
-}
-
-function removeResult() {
-    var list = document.getElementById("result");
-    while (list.hasChildNodes()) {
-        list.removeChild(list.firstChild);
-    }
-}
-
-function createTimer() {
-    timer = document.createElement("INPUT");
-    timer.value = 0
-    timer.style.width = "200px";
-    timer.style.height = "200px";
-    timer.style.fontSize = "75px"
-    timer.style.backgroundColor = "#FF9500";
-    timer.style.textAlign = "center"
-    timer.style.border = "0px"
-    timerDisplay = timer.style.display
-    timer.style.display = "none"
-    document.body.appendChild(timer);
-}
-
-function updateTimer() {
-    timer.value++;
-}
-
-function startTimer() {
-    timer.value = 0
-    timer.style.display = timerDisplay
-    clearInterval(timerId)
-    timerId = setInterval(updateTimer,1000);
-}
-function stopTimer() {
-    timer.style.display = "none"
-    clearInterval(timerId)    
-}
-
-createStart();
-createEquationListButton();
-createTimer();
-createNumberButtons();
-hidenNumberButtons();
+createStartButton();
