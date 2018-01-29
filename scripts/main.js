@@ -44,6 +44,7 @@ function summarize(){
     alert(count);
     myHeading.textContent = ""
     nextButton.style.display = "none"
+    count = 0;
     createStartButton();
 }
 
