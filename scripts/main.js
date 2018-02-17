@@ -9,12 +9,12 @@ function getRandomInt(min, max) {
 }
 
 function createEquation() {
-    a = getRandomInt(0, 10);
+    a = getRandomInt(0, 100);
 
     if (getRandomInt(0, 1))
     {
         op = " + ";
-        b = getRandomInt(0, 20 - a);
+        b = getRandomInt(0, 100 - a);
         answer = a + b;
     }
     else
