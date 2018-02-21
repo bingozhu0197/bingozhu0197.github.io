@@ -9,15 +9,15 @@ function getRandomInt(min, max) {
 }
 
 function createEquation() {
-    operatorRand = getRandomInt(0, 3);
-    if (operatorRand % 3 == 1)
+    operatorRand = getRandomInt(0, 3) % 3;
+    if (operatorRand == 1)
     {
         a = getRandomInt(0, 100);
         op = " + ";
         b = getRandomInt(0, 100 - a);
         answer = a + b
     }
-    else if (operatorRand % 3 == 2)
+    else if (operatorRand == 2)
     {
         a = getRandomInt(0, 100);
         op = " - ";
