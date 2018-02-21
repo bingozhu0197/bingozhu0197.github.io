@@ -9,19 +9,27 @@ function getRandomInt(min, max) {
 }
 
 function createEquation() {
-    if (getRandomInt(0, 1))
+    operatorRand = getRandomInt(0, 3);
+    if (operatorRand % 3)
     {
-        a = getRandomInt(0, 10);
+        a = getRandomInt(0, 100);
         op = " + ";
-        b = getRandomInt(0, 20 - a);
+        b = getRandomInt(0, 100 - a);
         answer = a + b
     }
-    else
+    else if (operatorRand % 3 == 1)
     {
-        a = getRandomInt(0, 20);
+        a = getRandomInt(0, 100);
         op = " - ";
         b = getRandomInt(0, a);
         answer = a - b;
+    }
+    else
+    {
+        a = getRandomInt(0, 9);
+        op = " X ";
+        b = getRandomInt(0, 9);
+        answer = a - b;        
     }
     myHeading.textContent = a.toString() + op + b.toString() + " = ";
     count++;
@@ -51,7 +59,7 @@ function summarize(){
 function home(){
     startButton.style.display = "none"
     createEquation();
-    setTimeout(function() {summarize();}, 60000);
+    setTimeout(function() {summarize();}, 300000);
     createNextButton();
 }
 
